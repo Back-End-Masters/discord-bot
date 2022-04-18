@@ -14,8 +14,25 @@ client.on('interactionCreate', async interaction => {
 
 	if (commandName === 'ping') {
 		await interaction.reply('Pong!');
-	} else if (commandName === 'server') {
-		await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+	} else if (commandName === 'createcommand') {
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageSelectMenu()
+					.setCustomId('select')
+					.setPlaceholder('Nothing selected')
+					.addOptions([
+						{
+							label: 'Select me',
+							description: 'This is a description',
+							value: 'first_option',
+						},
+						{
+							label: 'You can select me too',
+							description: 'This is also a description',
+							value: 'second_option',
+						},
+					]),);
+
 	} else if (commandName === 'user') {
 		await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
 	}
