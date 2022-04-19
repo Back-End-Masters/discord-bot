@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+//creates object for our command and allows us to execute our command (interaction)
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('createcommand')
@@ -14,9 +15,22 @@ module.exports = {
       option.setName('api-url')
         .setDescription('API endpoint URL.')
         .setRequired(true),
+    )
+    .addStringOption(option =>
+      option.setName('key-one')
+        .setDescription('Requires value in addition to this key.')
+        .setRequired(false),
+    )
+    .addStringOption(option =>
+      option.setName('value-one')
+        .setDescription('Matches previously defined key.')
+        .setRequired(false),
     ),
   async execute(interaction) {
+    console.log('INTERACTION:', interaction.options._hoistedOptions);
     const value = interaction.options.getString('rest-method');
+
+    //TO DO: return with new logistics for script
     return interaction.reply(`You have selected ${value}`)
   },
 };
