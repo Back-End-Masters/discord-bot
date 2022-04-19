@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
-
+const beautify = require('json-beautify');
 //creates object for our command and allows us to execute our command (interaction)
 module.exports = {
   data: new SlashCommandBuilder()
@@ -43,12 +43,12 @@ module.exports = {
     await fetch(request)
     .then(response => response.json())
     .then(data => {
-      results = data;
+      results = beautify(data, null, 2, 100);
 
     })
     console.log(results);
     //TO DO: return code block to user from api endpoint based on their params
-    return interaction.reply(`\`\`\`${results}\`\`\``);
+    return interaction.reply(`\`\`\`json\n${results}\n\`\`\``);
   },
 };
 
