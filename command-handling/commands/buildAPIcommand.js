@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const fetch = require('node-fetch');
 
 //creates object for our command and allows us to execute our command (interaction)
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
       option.setName('rest-method')
         .setDescription('The REST method to use for this API call.')
         .setRequired(true)
-        .addChoices({ name: 'Read', value: 'method_read' }, { name: 'Update', value: 'method_update' }, { name: 'Delete', value: 'method_delete' }, { name: 'Create', value: 'method_create' })
+        .addChoices({ name: 'Read', value: 'get' }, { name: 'Update', value: 'put' }, { name: 'Delete', value: 'delete' }, { name: 'Create', value: 'post' })
     )
     .addStringOption(option =>
       option.setName('api-url')
@@ -28,9 +29,22 @@ module.exports = {
     ),
   async execute(interaction) {
     console.log('INTERACTION:', interaction.options._hoistedOptions);
-    const value = interaction.options.getString('rest-method');
-
-    //TO DO: return with new logistics for script
-    return interaction.reply(`You have selected ${value}`)
+    const method = interaction.options.getString('rest-method').toUpperCase();
+    const url = interaction.options.getString('api-url');
+    const key1 = interaction.options.getString('key-one');
+    const val1 = interaction.options.getString('value-one');
+    let request = url;
+    // concatenates the params to the user input api endpoint 
+    if (key1) {
+      request += `?${key1}=${val1}`
+    }
+    let results;
+    fetch(request)
+    .then(response => results = response.body.json())
+    console.log(results);
+    //TO DO: return code block to user from api endpoint based on their params
+    return interaction.reply(results);
   },
 };
+
+
