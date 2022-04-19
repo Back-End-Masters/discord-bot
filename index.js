@@ -12,7 +12,7 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
 }
-
+//AHHHHHHHH
 client.once('ready', () => {
 	console.log('Ready!');
 });
