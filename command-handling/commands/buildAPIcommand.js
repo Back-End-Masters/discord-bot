@@ -36,14 +36,19 @@ module.exports = {
     let request = url;
     // concatenates the params to the user input api endpoint 
     if (key1) {
-      request += `?${key1}=${val1}`
+      request += `?${key1}=${val1}`;
     }
+    // await interaction.deferReply();
     let results;
-    fetch(request)
-    .then(response => results = response.body.json())
+    await fetch(request)
+    .then(response => response.json())
+    .then(data => {
+      results = data;
+
+    })
     console.log(results);
     //TO DO: return code block to user from api endpoint based on their params
-    return interaction.reply(results);
+    return interaction.reply(`\`\`\`${results}\`\`\``);
   },
 };
 
