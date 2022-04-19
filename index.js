@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./command-handling/config.json');
+// const { token } = require('./command-handling/config.json');
+require('dotenv');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 //leaving a comment for heroku
@@ -31,4 +32,4 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.login(token);
+client.login(process.env.token);
