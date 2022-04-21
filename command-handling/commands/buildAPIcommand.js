@@ -76,23 +76,22 @@ module.exports = {
         .then(response => response.json())
         .then(dataObject => {
           console.log(dataObject)
-          if (drillDown) {
-            let drillBits = drillDown.split('.')
-            for (let bit of drillBits) {
-              dataObject = dataObject[bit]
-              console.log(bit, dataObject)
-            }
-            return dataObject;
-          }
-
+          // if (drillDown) {
+          //   let drillBits = drillDown.split('.')
+          //   for (let bit of drillBits) {
+          //     dataObject = dataObject[bit]
+          //     console.log(bit, dataObject)
+          //   }
+          return beautify(dataObject, null, 2, 100);
         })
+      return interaction.reply(`Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``);
+
       // let reply = ''
       // console.log(typeof results, 'house party')
       // if (typeof results === 'object') {
       //   reply = `Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``;
 
       // }
-      return interaction.reply(`Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``);
     } catch (error) {
       console.log('error', error);
       throw new Error(error);
