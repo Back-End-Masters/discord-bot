@@ -1,4 +1,4 @@
-# Discord Bot 
+# Discord API Request Bot 
 
 A chat bot that can create API requests with a slash command. Once a user enters a slash command our bot grabs the action from our server and performs that specific command. Users have the choice of either `/ping`, `/help`, or `/apirequest`.
 
