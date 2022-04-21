@@ -1,114 +1,53 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 const beautify = require('json-beautify');
-const buildAPIcommand = require('../../commands/buildAPIcommand');
+// const buildAPIcommand = require('../../commands/buildAPIcommand');
 
-const dataExecute = {
-  data: buildCommand(),
-  execute: executeInteraction(), //function that calls other functions 
+// const dataExecute = {
+//   data: buildCommand(),
+//   execute: executeInteraction(), //function that calls other functions 
+// }
+
+function addOption(option, field) {
+  //dynamically set field for each stringOption from the respective object 
+  let name = Object.keys(field)[0];
+  let description = field[name];
+  let required = field.required;
+
+  return option.setName(name)
+    .setDescription(description)
+    .setRequired(required)
 }
 
-function buildCommand(){
 
-  let fieldNames = ['']
-  new SlashCommandBuilder()
-  .setName('createcommand')
+function buildCommand() {
+
+  let inputFields = [
+    { apiurl: 'API endpoint URL.', required: true },
+    { keyone: 'Requires value one in addition to this key.', required: false },
+    { valueone: 'Matches key one.', required: false },
+    { keytwo: 'Requires value two in addition to this key.', required: false },
+    { valuetwo: 'Matches key two.', required: false },
+    { keythree: 'Requires value three in addition to this key.', required: false },
+    { valuethree: 'Matches key three.', required: false }
+  ]
+
+  let command = new SlashCommandBuilder()
+    .setName('apirequest')
     .setDescription('Creates an API access command.')
-    .addStringOption(option =>
-      option.setName('api-url')
-        .setDescription('API endpoint URL.')
-        .setRequired(true),
-    )
-    .addStringOption(option =>
-      option.setName('key-one')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('value-one')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('key-two')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('drill-down')
-        .setDescription('Chain of properties to desired content')
-        .setRequired(false)
-    )
-    .addStringOption(option =>
-      option.setName('value-two')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('key-three')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('value-three')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    )
+for (let i = 0; i < inputFields.length; i++){
+  command.addStringOption( option => addOption(option, inputFields[i]) )
+  }
 }
-
-
-
-
-
 
 
 //Creates slash command for HTTP GET request to an API 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('createcommand')
-    .setDescription('Creates an API access command.')
-    .addStringOption(option =>
-      option.setName('api-url')
-        .setDescription('API endpoint URL.')
-        .setRequired(true),
-    )
-    .addStringOption(option =>
-      option.setName('key-one')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('value-one')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('key-two')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('drill-down')
-        .setDescription('Chain of properties to desired content')
-        .setRequired(false)
-    )
-    .addStringOption(option =>
-      option.setName('value-two')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('key-three')
-        .setDescription('Requires value in addition to this key.')
-        .setRequired(false),
-    )
-    .addStringOption(option =>
-      option.setName('value-three')
-        .setDescription('Matches previously defined key.')
-        .setRequired(false),
-    ),
 
-    //Executes the interaction through user input that fills in the respective input-field
+  
+  data: buildCommand(),
+
+  //Executes the interaction through user input that fills in the respective input-field
   async execute(interaction) {
     console.log('INTERACTION:', interaction.options._hoistedOptions);
     const url = interaction.options.getString('api-url');
@@ -137,7 +76,7 @@ module.exports = {
     //formats users API endpoint url and results
     try {
       let results = await fetch(request)
-      //TO DO: convert .then to a readable function
+        //TO DO: convert .then to a readable function
         .then(response => response.json())
         .then(dataObject => {
           console.log(dataObject)

@@ -5,10 +5,10 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 //#region Build command pool
 //filters through .js files within ./commands and selects invoked slash command.
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./command-handling/commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./command-functions/commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`./command-handling/commands/${file}`);
+	const command = require(`./command-functions/commands/${file}`);
 	client.commands.set(command.data.name, command);
 }
 //#endregion 
