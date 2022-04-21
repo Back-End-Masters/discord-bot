@@ -26,28 +26,83 @@ module.exports = {
       option.setName('value-one')
         .setDescription('Matches previously defined key.')
         .setRequired(false),
+    )
+    .addStringOption(option =>
+      option.setName('key-two')
+        .setDescription('Requires value in addition to this key.')
+        .setRequired(false),
+    )
+    .addStringOption(option =>
+      option.setName('drill-down')
+        .setDescription('Chain of properties to desired content')
+        .setRequired(false)
+    )
+    .addStringOption(option =>
+      option.setName('value-two')
+        .setDescription('Matches previously defined key.')
+        .setRequired(false),
+    )
+    .addStringOption(option =>
+      option.setName('key-three')
+        .setDescription('Requires value in addition to this key.')
+        .setRequired(false),
+    )
+    .addStringOption(option =>
+      option.setName('value-three')
+        .setDescription('Matches previously defined key.')
+        .setRequired(false),
     ),
   async execute(interaction) {
     console.log('INTERACTION:', interaction.options._hoistedOptions);
     //const method = interaction.options.getString('rest-method').toUpperCase();
     const url = interaction.options.getString('api-url');
+    const drillDown = interaction.options.getString('drill-down');
     const key1 = interaction.options.getString('key-one');
     const val1 = interaction.options.getString('value-one');
+    const key2 = interaction.options.getString('key-two');
+    const val2 = interaction.options.getString('value-two');
+    const key3 = interaction.options.getString('key-three');
+    const val4 = interaction.options.getString('value-three');
     let request = url;
-    // concatenates the params to the user input api endpoint 
+
+
     if (key1) {
       request += `?${key1}=${val1}`;
+    }
+
+    if (key2) {
+      request += `?${key2}=${val2}`;
+    }
+
+    // concatenates the params to the user input api endpoint 
+    if (key3) {
+      request += `?${key3}=${val3}`;
     }
     try {
       let results = await fetch(request)
         .then(response => response.json())
-        .then(data => {
-          return beautify(data, null, 2, 100);
+        .then(dataObject => {
+          // console.log(data)
+          // let dataObject = beautify(data, null, 2, 100);
+          console.log(dataObject)
+          if (drillDown) {
+            let drillBits = drillDown.split('.')
+            for (let bit of drillBits) {
+              dataObject = dataObject[bit]
+              console.log(bit,dataObject)
+            }
+            return dataObject;
+          }
+
         })
-      console.log('results', results);
-      console.log('this is what success should look like');
+        let reply = ''
+        console.log(typeof results,'house party')
+        if (typeof results ==='object'){
+          reply = `Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``;
+
+        } 
       //TO DO: return code block to user from api endpoint based on their params
-      return interaction.reply(`\`\`\`json\n${results}\n\`\`\``);
+      return interaction.reply(reply);
     } catch (error) {
       console.log('error', error);
       throw new Error(error);
