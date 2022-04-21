@@ -8,7 +8,7 @@ A chat bot that can create API requests with a slash command. Once a user enters
 
 ## Command Details
 
-| invoke command | Bot responose                                                                                                                  |
+| invoke command | Bot response                                                                                                                  |
 |----------------|--------------------------------------------------------------------------------------------------------------------------------|
 | /ping          | 'Pong!'                                                                                                                        |
 | /help          | instructions for all commands                                                                                                  |
