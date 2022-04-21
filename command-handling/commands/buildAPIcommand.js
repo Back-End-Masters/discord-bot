@@ -6,12 +6,6 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('createcommand')
     .setDescription('Creates an API access command.')
-    // .addStringOption(option =>
-    //   option.setName('rest-method')
-    //     .setDescription('The REST method to use for this API call.')
-    //     .setRequired(true)
-    //     .addChoices({ name: 'Read', value: 'get' }, { name: 'Update', value: 'put' }, { name: 'Delete', value: 'delete' }, { name: 'Create', value: 'post' })
-    // )
     .addStringOption(option =>
       option.setName('api-url')
         .setDescription('API endpoint URL.')
@@ -54,7 +48,6 @@ module.exports = {
     ),
   async execute(interaction) {
     console.log('INTERACTION:', interaction.options._hoistedOptions);
-    //const method = interaction.options.getString('rest-method').toUpperCase();
     const url = interaction.options.getString('api-url');
     const drillDown = interaction.options.getString('drill-down');
     const key1 = interaction.options.getString('key-one');
@@ -74,7 +67,7 @@ module.exports = {
       request += `?${key2}=${val2}`;
     }
 
-    // concatenates the params to the user input api endpoint 
+
     if (key3) {
       request += `?${key3}=${val3}`;
     }
@@ -82,27 +75,23 @@ module.exports = {
       let results = await fetch(request)
         .then(response => response.json())
         .then(dataObject => {
-          // console.log(data)
-          // let dataObject = beautify(data, null, 2, 100);
           console.log(dataObject)
-          if (drillDown) {
-            let drillBits = drillDown.split('.')
-            for (let bit of drillBits) {
-              dataObject = dataObject[bit]
-              console.log(bit,dataObject)
-            }
-            return dataObject;
-          }
-
+          // if (drillDown) {
+          //   let drillBits = drillDown.split('.')
+          //   for (let bit of drillBits) {
+          //     dataObject = dataObject[bit]
+          //     console.log(bit, dataObject)
+          //   }
+          return beautify(dataObject, null, 2, 100);
         })
-        let reply = ''
-        console.log(typeof results,'house party')
-        if (typeof results ==='object'){
-          reply = `Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``;
+      return interaction.reply(`Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``);
 
-        } 
-      //TO DO: return code block to user from api endpoint based on their params
-      return interaction.reply(reply);
+      // let reply = ''
+      // console.log(typeof results, 'house party')
+      // if (typeof results === 'object') {
+      //   reply = `Here is what I found at ${request}:\n\`\`\`json\n${results}\n\`\`\``;
+
+      // }
     } catch (error) {
       console.log('error', error);
       throw new Error(error);
