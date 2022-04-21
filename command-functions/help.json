@@ -1,4 +1,4 @@
 {
   "Instructions": "> **Required inputs**: `\/apirequest` `[API-URL]`\n > This command will read data from your favorite HTTP API endpoint.\n> \n > **Optional parameters**: `[KEY#]` `[VALUE#]`\n > These parameters allow a user to query an API for specific results. See individual API instructions for more clarity on usage.\n > \n > **Example**:",
-  "Example": "https://discord-bot-mmt.herokuapp.com/assets/exampleurl.png"
+  "Example": "https://i.imgur.com/61vemlP.png"
 }
