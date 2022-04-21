@@ -2,6 +2,8 @@
 
 A chat bot that can create API requests with a slash command. Once a user enters a slash command our bot grabs the action from our server and performs that specific command. Users have the choice of either `/ping`, `/help`, or `/apirequest`.
 
+![API-Example](https://user-images.githubusercontent.com/90294860/164566236-28394bf8-0e14-4ef9-8273-64c7887bd27c.png)
+
 ## Authors
 
 #### Micha, Michael, Tiara
