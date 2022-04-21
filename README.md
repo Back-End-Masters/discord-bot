@@ -1,10 +1,10 @@
 # Discord Bot 
 
-A chat bot that can create aliases for API requests and tie them to in-chat slash commands. Once a user enters a slash command our bot grabs the action from our server and performs that specific command. Users have the choice of either `/ping`, `/help`, or `/APIEndpoint`.
+A chat bot that can create API requests with a slash command. Once a user enters a slash command our bot grabs the action from our server and performs that specific command. Users have the choice of either `/ping`, `/help`, or `/apirequest`.
 
 ## Authors
 
-#### Micha, Michael Tiara
+#### Micha, Michael, Tiara
 
 ## Command Details
 
@@ -36,7 +36,7 @@ A chat bot that can create aliases for API requests and tie them to in-chat slas
 
 ![env sample](https://user-images.githubusercontent.com/90294860/164510718-2ebeff5e-e71a-4116-aada-06ff4480cc48.png)
 
-‼️ **If you have never built a Discord bot before you may want to checkout their documenttation and example on [GitHub](https://github.com/discord/discord-example-app).** ‼️
+‼️ **If you have never built a Discord bot before you may want to check out their documenttation and example on [GitHub](https://github.com/discord/discord-example-app).** ‼️
 
 
 ## UML
