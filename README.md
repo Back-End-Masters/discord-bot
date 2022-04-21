@@ -14,7 +14,7 @@ A chat bot that can create API requests with a slash command. Once a user enters
 | /help          | instructions for all commands                                                                                                  |
 | /APIEndpoint   | Users can use this to return data from an api endpoint of their choice, they can additionally add parameters to their request. |
 
-## How to use this as a templete!
+## How to use this as a template!
 
 # Installation
 
