@@ -42,7 +42,7 @@ A chat bot that can create API requests with a slash command. Once a user enters
 
 
 ## UML
-![discordBotUML](https://user-images.githubusercontent.com/90294860/164507381-9e81fc4e-9e9b-4146-ad2f-f0083d03cd19.png)
+![discordBotUML](/assets/uml.png)
 
 ## Testing
 
