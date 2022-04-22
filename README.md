@@ -43,3 +43,35 @@ A chat bot that can create API requests with a slash command. Once a user enters
 
 ## UML
 ![discordBotUML](https://user-images.githubusercontent.com/90294860/164507381-9e81fc4e-9e9b-4146-ad2f-f0083d03cd19.png)
+
+## Testing
+
+Testing was done iteratively, using instant responses from discord and server terminal. Our first challenge was getting our asynchronous operations to line up.
+
+![No response](./assets/test-img-4.png)
+
+Without proper synchronization, we would get no response.
+
+Over the course of progressive iterations, we were finally able to see promising results.
+
+![Progress toward success](./assets/test-img-2.png)
+
+Since feedback was instantaneous, we were able to continually test throughout the development process.
+
+Early on, we had trouble rendering the object in a way Discord could read.
+
+![A failed test](./assets/test-img-1.png)
+
+We first tried to use `JSON.stringify()` with unsatisfactory results:
+
+![Ugly text block](./assets/test-img-3.png)
+
+We applied a library called "JSON Beautify", which is a fork of `stringify`, and our results looked much better
+
+![Beautiful JSON](./assets/test-img-5.png)
+
+
+
+
+
+
